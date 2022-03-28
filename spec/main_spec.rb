@@ -19,4 +19,24 @@ describe Game do
       end
     end
   end
+
+  describe '#make_move' do
+    subject(:game) { described_class.new }
+    context 'When move is valid' do
+      it 'does not print "invalid location!" error message to screen' do
+        error_message = 'Invalid location! Please choose a different column.'
+        expect(game).not_to receive(:puts).with(error_message)
+      end
+    end
+
+    context 'When user inputs 3 invalid moves, then a valid one' do
+      it 'Displays the error message three times and then completes the loop' do
+        error_message = 'Invalid location! Please choose a different column.'
+        expect(game).to receive(:puts).with(error_message)
+        expect(game).to receive(:puts).with(error_message)
+        expect(game).to receive(:puts).with(error_message)
+        expect(game).not_to receive(:puts).with(error_message)
+      end
+    end
+  end
 end
