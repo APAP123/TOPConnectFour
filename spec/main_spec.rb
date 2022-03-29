@@ -44,6 +44,66 @@ describe Game do
     end
   end
 
+  describe '#someone_win?' do
+    subject(:game) { described_class.new }
+    context 'When no one has won yet' do
+      it 'returns false when the board is empty' do
+        expect(game.someone_win?).to be false
+      end
+      it 'returns false when the board is populated but no piece has four touching' do
+        game = described_class.new( Array.new(Array.new(6, ' '), Array.new(6, ' '), Array.new(6, ' '),
+        Array.new(6, ' '), Array.new(6, ' '), Array.new(6, ' '), ['X', 'X', 'X', ' ', ' ', ' ']) )
+        expect(game.someone_win?).to be false
+      end
+    end
+    context 'When someone has won' do
+      it 'returns true when X has four in a row horizontally' do
+        game = described_class.new( Array.new(Array.new(6, ' '), Array.new(6, ' '), Array.new(6, ' '),
+        Array.new(6, ' '), Array.new(6, ' '), Array.new(6, ' '), ['X', 'X', 'X', 'X', ' ', ' ']) )
+        expect(game.someone_win?).to be true
+      end
+      it 'returns true when X has four in a row vertically' do
+        game = described_class.new(
+          Array.new(
+            [' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' '],
+            ['X', ' ', ' ', ' ', ' ', ' '],
+            ['X', ' ', ' ', ' ', ' ', ' '],
+            ['X', ' ', ' ', ' ', ' ', ' '],
+            ['X', 'O', 'O', ' ', ' ', 'O']
+          )
+        )
+        expect(game.someone_win?).to be true
+      end
+      it 'returns true when X has four in a row diagonally "up"' do
+        game = described_class.new(
+          Array.new(
+            [' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', 'X', ' ', ' '],
+            [' ', ' ', 'X', 'O', ' ', ' '],
+            [' ', 'X', 'O', 'O', ' ', ' '],
+            ['X', 'O', 'O', 'X', 'X', ' ']
+          )
+        )
+        expect(game.someone_win?).to be true
+      end
+      it 'returns true when X has four in a row diagonally "down"' do
+        game = described_class.new(
+          Array.new(
+            [' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' '],
+            ['X', ' ', ' ', ' ', ' ', ' '],
+            ['X', 'X', ' ', ' ', ' ', ' '],
+            ['O', 'O', 'X', ' ', ' ', ' '],
+            ['O', 'O', 'O', 'X', ' ', 'X']
+          )
+        )
+        expect(game.someone_win?).to be true
+      end
+    end
+  end
+
   describe '#make_move' do
     subject(:game) { described_class.new }
     context 'When move is valid' do
