@@ -48,58 +48,92 @@ describe Game do
     subject(:game) { described_class.new }
     context 'When no one has won yet' do
       it 'returns false when the board is empty' do
-        expect(game.someone_win?).to be false
+        player = 'X'
+        coords = [5, 2]
+        result = game.someone_win?(coords, player)
+        expect(result).to be false
       end
       it 'returns false when the board is populated but no piece has four touching' do
-        game = described_class.new( Array.new(Array.new(6, ' '), Array.new(6, ' '), Array.new(6, ' '),
-        Array.new(6, ' '), Array.new(6, ' '), Array.new(6, ' '), ['X', 'X', 'X', ' ', ' ', ' ']) )
-        expect(game.someone_win?).to be false
+        game = described_class.new(
+          [
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            ['O', ' ', ' ', ' ', ' ', ' ', ' '],
+            ['X', ' ', ' ', ' ', ' ', ' ', ' '],
+            ['X', ' ', ' ', ' ', ' ', ' ', ' '],
+            ['X', 'O', 'O', ' ', ' ', 'O', ' ']
+          ]
+        )
+        player = 'X'
+        coords = [5, 2]
+        result = game.someone_win?(coords, player)
+        expect(result).to be false
       end
     end
     context 'When someone has won' do
       it 'returns true when X has four in a row horizontally' do
-        game = described_class.new( Array.new(Array.new(6, ' '), Array.new(6, ' '), Array.new(6, ' '),
-        Array.new(6, ' '), Array.new(6, ' '), Array.new(6, ' '), ['X', 'X', 'X', 'X', ' ', ' ']) )
-        expect(game.someone_win?).to be true
+        game = described_class.new(
+          [
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            ['O', 'O', 'O', ' ', ' ', ' ', ' '],
+            ['X', 'X', 'X', 'X', ' ', ' ', ' ']
+          ]
+        )
+        player = 'X'
+        coords = [5, 3]
+        result = game.someone_win?(coords, player)
+        expect(result).to be true
       end
       it 'returns true when X has four in a row vertically' do
         game = described_class.new(
-          Array.new(
-            [' ', ' ', ' ', ' ', ' ', ' '],
-            [' ', ' ', ' ', ' ', ' ', ' '],
-            ['X', ' ', ' ', ' ', ' ', ' '],
-            ['X', ' ', ' ', ' ', ' ', ' '],
-            ['X', ' ', ' ', ' ', ' ', ' '],
-            ['X', 'O', 'O', ' ', ' ', 'O']
-          )
+          [
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            ['X', ' ', ' ', ' ', ' ', ' ', ' '],
+            ['X', ' ', ' ', ' ', ' ', ' ', ' '],
+            ['X', ' ', ' ', ' ', ' ', ' ', ' '],
+            ['X', 'O', 'O', ' ', ' ', 'O', ' ']
+          ]
         )
-        expect(game.someone_win?).to be true
+        player = 'X'
+        coords = [2, 0]
+        result = game.someone_win?(coords, player)
+        expect(result).to be true
       end
       it 'returns true when X has four in a row diagonally "up"' do
         game = described_class.new(
-          Array.new(
-            [' ', ' ', ' ', ' ', ' ', ' '],
-            [' ', ' ', ' ', ' ', ' ', ' '],
-            [' ', ' ', ' ', 'X', ' ', ' '],
-            [' ', ' ', 'X', 'O', ' ', ' '],
-            [' ', 'X', 'O', 'O', ' ', ' '],
-            ['X', 'O', 'O', 'X', 'X', ' ']
-          )
+          [
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', 'X', ' ', ' ', ' '],
+            [' ', ' ', 'X', 'O', ' ', ' ', ' '],
+            [' ', 'X', 'O', 'O', ' ', ' ', ' '],
+            ['X', 'O', 'O', 'X', 'X', ' ', ' ']
+          ]
         )
-        expect(game.someone_win?).to be true
+        player = 'X'
+        coords = [2, 3]
+        result = game.someone_win?(coords, player)
+        expect(result).to be true
       end
       it 'returns true when X has four in a row diagonally "down"' do
         game = described_class.new(
-          Array.new(
-            [' ', ' ', ' ', ' ', ' ', ' '],
-            [' ', ' ', ' ', ' ', ' ', ' '],
-            ['X', ' ', ' ', ' ', ' ', ' '],
-            ['X', 'X', ' ', ' ', ' ', ' '],
-            ['O', 'O', 'X', ' ', ' ', ' '],
-            ['O', 'O', 'O', 'X', ' ', 'X']
-          )
+          [
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            ['X', ' ', ' ', ' ', ' ', ' ', ' '],
+            ['X', 'X', ' ', ' ', ' ', ' ', ' '],
+            ['O', 'O', 'X', ' ', ' ', ' ', ' '],
+            ['O', 'O', 'O', 'X', ' ', 'X', ' ']
+          ]
         )
-        expect(game.someone_win?).to be true
+        player = 'X'
+        coords = [5, 3]
+        result = game.someone_win?(coords, player)
+        expect(result).to be true
       end
     end
   end
