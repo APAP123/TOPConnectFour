@@ -2,6 +2,7 @@
 class Game
   def initialize(board = Array.new(7) { Array.new(6, ' ') })
     @board = board
+    @current_player = 'X'
   end
 
   # Places player's piece in passed column

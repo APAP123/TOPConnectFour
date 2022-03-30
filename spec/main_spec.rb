@@ -138,6 +138,26 @@ describe Game do
     end
   end
 
+  describe '#switch_players' do
+    subject(:game) { described_class.new }
+    context 'When the player who just went was X' do
+      it 'Changes the current player to O' do
+        game.switch_players
+        player = game.instance_variable_get(:@current_player)
+        expect(player).to eq('O')
+      end
+    end
+
+    context 'When the player who just went was O' do
+      it 'Changes the current player to X' do
+        game.instance_variable_set(:@current_player, 'O')
+        game.switch_players
+        player = game.instance_variable_get(:@current_player)
+        expect(player).to eq('X')
+      end
+    end
+  end
+
   describe '#make_move' do
     subject(:game) { described_class.new }
     context 'When move is valid' do
