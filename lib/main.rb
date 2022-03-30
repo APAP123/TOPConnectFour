@@ -10,9 +10,14 @@ class Game
     @board[column].each_with_index do |space, index|
       if space == ' '
         @board[column][index] = player
-        return [column, index]
+        return [column, index] # coordinates where the played-piece landed
       end
     end
+  end
+
+  # Switches the current player
+  def switch_players
+    @current_player = @current_player == 'X' ? 'O' : 'X'
   end
 
   # Checks if column is available to have a piece placed
