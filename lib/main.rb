@@ -94,6 +94,16 @@ class Game
     false
   end
 
+  # Checks if the board is full
+  def board_full?
+    (0..@board.length - 1).each do |y|
+      (0..@board[y].length - 1).each do |x|
+        return false if @board[y][x] != ' '
+      end
+    end
+    true
+  end
+
   # Prints board to screen
   def print_self
     for i in 0..@board.length-1 do

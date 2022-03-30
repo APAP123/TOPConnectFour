@@ -158,6 +158,33 @@ describe Game do
     end
   end
 
+  describe '#board_full?' do
+    subject(:game) { described_class.new }
+    context 'When the board is not full' do
+      it 'Returns false' do
+        result = game.board_full?
+        expect(result).to be false
+      end
+    end
+
+    context 'When the board is full' do
+      it 'Returns true' do
+        game = described_class.new(
+          [
+            ['O', 'X', 'O', 'X', 'O', 'X', 'O'],
+            ['O', 'X', 'O', 'X', 'O', 'X', 'O'],
+            ['O', 'X', 'O', 'X', 'O', 'X', 'O'],
+            ['X', 'O', 'X', 'O', 'X', 'O', 'X'],
+            ['X', 'O', 'X', 'O', 'X', 'O', 'X'],
+            ['X', 'O', 'X', 'O', 'X', 'O', 'X']
+          ]
+        )
+        result = game.board_full?
+        expect(result).to be true
+      end
+    end
+  end
+
   describe '#make_move' do
     subject(:game) { described_class.new }
     context 'When move is valid' do
