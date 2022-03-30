@@ -98,7 +98,7 @@ class Game
   def board_full?
     (0..@board.length - 1).each do |y|
       (0..@board[y].length - 1).each do |x|
-        return false if @board[y][x] != ' '
+        return false if @board[y][x] == ' '
       end
     end
     true
